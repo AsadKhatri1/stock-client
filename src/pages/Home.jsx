@@ -1,17 +1,16 @@
 import React from "react";
-import AddStockDefault from "../components/AddStockDefault";
-
+import HomeDefault from "../components/HomeDefault";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 
-const AddStock = () => {
+const Home = () => {
   return (
     <div className="grid-container">
       <Header />
       <Sidebar />
-      <AddStockDefault />
+      <HomeDefault />
     </div>
   );
 };
 
-export default AddStock;
+export default Home;

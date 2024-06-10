@@ -1,17 +1,16 @@
 import React from "react";
-import AddStockDefault from "../components/AddStockDefault";
-
+import FabricDefault from "../components/FabricDefault";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 
-const AddStock = () => {
+const Fabric = () => {
   return (
     <div className="grid-container">
       <Header />
       <Sidebar />
-      <AddStockDefault />
+      <FabricDefault />
     </div>
   );
 };
 
-export default AddStock;
+export default Fabric;

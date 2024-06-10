@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -7,6 +7,14 @@ const LoginDefault = () => {
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
   const navigate = useNavigate();
+
+  // checking for localstorage
+  useEffect(() => {
+    const tokenExists = localStorage.getItem("token");
+    if (tokenExists) {
+      navigate("/home");
+    }
+  }, []);
 
   // submit handler
   const submitHandler = async (e) => {

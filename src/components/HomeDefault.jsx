@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const StockDefault = () => {
+const HomeDefault = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const tokenExists = localStorage.getItem("token");
@@ -11,9 +11,11 @@ const StockDefault = () => {
   }, []);
   return (
     <main className="main-container">
-      <h2 className>Threads Inventory</h2>
+      <div className="main-title">
+        <h1>Dashboard</h1>
+      </div>
     </main>
   );
 };
 
-export default StockDefault;
+export default HomeDefault;
