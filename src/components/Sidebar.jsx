@@ -1,8 +1,9 @@
-import React from "react";
+import React, { act, useState } from "react";
 import { BsCart3 } from "react-icons/bs";
 import { MdOutlineInventory } from "react-icons/md";
 import { Link } from "react-router-dom";
 const Sidebar = () => {
+  const [active, setActive] = useState(false);
   return (
     <aside id="sidebar">
       <div className="sidebar-title">
@@ -13,22 +14,38 @@ const Sidebar = () => {
       </div>
       <ul className="sidebar-list">
         <Link to="/home" className="link">
-          <li className="sidebar-list-item">
+          <li
+            className={
+              active ? "sidebar-list-item active" : "sidebar-list-item"
+            }
+          >
             <MdOutlineInventory className="icon" /> DASHBOARD
           </li>
         </Link>
         <Link to="/stock" className="link">
-          <li className="sidebar-list-item">
+          <li
+            className={
+              active ? "sidebar-list-item active" : "sidebar-list-item"
+            }
+          >
             <MdOutlineInventory className="icon" /> THREADS
           </li>
         </Link>
         <Link to="/fabric" className="link">
-          <li className="sidebar-list-item">
+          <li
+            className={
+              active ? "sidebar-list-item active" : "sidebar-list-item"
+            }
+          >
             <MdOutlineInventory className="icon" /> FABRIC
           </li>
         </Link>
         <Link to="/add" className="link">
-          <li className="sidebar-list-item">
+          <li
+            className={
+              active ? "sidebar-list-item active" : "sidebar-list-item"
+            }
+          >
             <MdOutlineInventory className="icon" /> ADD NEW
           </li>
         </Link>

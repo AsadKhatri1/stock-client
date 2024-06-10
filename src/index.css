@@ -78,6 +78,10 @@ body {
   background-color: #ebebeb;
   cursor: pointer;
 }
+.sidebar-list-item.active {
+  background-color: #ebebeb;
+  cursor: pointer;
+}
 .link {
   text-decoration: none;
   color: #070707;

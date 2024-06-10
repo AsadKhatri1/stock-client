@@ -43,7 +43,7 @@ const LoginDefault = () => {
   };
   return (
     <div className="main vw-100 vh-100 d-flex flex-column align-items-center justify-content-center">
-      <h2 className="font-weight-bold" style={{ color: "white" }}>
+      <h2 className="font-weight-bold" style={{ color: "black" }}>
         LOGIN
       </h2>
       <div className="formdiv w-75 h-75 border row align-items-center justify-content-center">
