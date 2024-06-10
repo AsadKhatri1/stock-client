@@ -43,7 +43,9 @@ const LoginDefault = () => {
   };
   return (
     <div className="main vw-100 vh-100 d-flex flex-column align-items-center justify-content-center">
-      <h2 className="font-weight-bold">LOGIN</h2>
+      <h2 className="font-weight-bold" style={{ color: "white" }}>
+        LOGIN
+      </h2>
       <div className="formdiv w-75 h-75 border row align-items-center justify-content-center">
         <form
           onSubmit={submitHandler}
@@ -53,7 +55,7 @@ const LoginDefault = () => {
           <input
             style={{
               borderRadius: "16px",
-              padding: "5px",
+              padding: "8px 5px",
               border: "2px solid black",
               textIndent: "8px",
             }}
@@ -67,7 +69,7 @@ const LoginDefault = () => {
           <input
             style={{
               borderRadius: "16px",
-              padding: "5px",
+              padding: "8px 5px",
               border: "2px solid black",
               textIndent: "8px",
             }}
