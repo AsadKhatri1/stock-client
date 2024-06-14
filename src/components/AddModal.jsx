@@ -1,11 +1,22 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const AddModal = (props) => {
+  const navigate = useNavigate();
   const [Colour, setColour] = useState("");
   const [Code, setCode] = useState("");
   const [Quantity, setQuantity] = useState("");
+  const allThreads = async () => {
+    const response = await axios.get(
+      "https://stock-management-onoq.onrender.com/api/thread/allthreads"
+    );
+    if (response.data.success) {
+      setThreads(response.data.threads);
+    }
+  };
+
   //   adding thread
   const addHandler = async (e) => {
     e.preventDefault();
@@ -23,6 +34,8 @@ const AddModal = (props) => {
         toast.success(response.data.message);
         props.closeModal();
         // window.location.reload();
+        allThreads();
+        navigate("/stock");
       }
     } catch (err) {
       toast.error(err.response.data.message);
