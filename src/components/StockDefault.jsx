@@ -9,6 +9,7 @@ import { FaEdit } from "react-icons/fa";
 import { MdSaveAlt } from "react-icons/md";
 const StockDefault = () => {
   const [showModal, setShowModal] = useState(false);
+  const [search, setSearch] = useState("");
   const closeModal = () => setShowModal(false);
   const [threads, setThreads] = useState([]);
   const [editingId, setEditingId] = useState(null);
@@ -92,6 +93,19 @@ const StockDefault = () => {
           Add New Thread
         </button>
       </div>
+      <div className="row m-2 ">
+        <input
+          type="text"
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search"
+          className="w-50 rounded py-2"
+          style={{
+            borderRadius: "12px",
+            textIndent: "6px",
+            border: "1px solid black",
+          }}
+        />
+      </div>
       {showModal ? (
         <AddModal showModal={showModal} closeModal={closeModal} />
       ) : null}
@@ -119,65 +133,72 @@ const StockDefault = () => {
                 </tr>
               </thead>
               <tbody>
-                {threads.map((thread, i) => (
-                  <tr key={thread._id}>
-                    <td>{i + 1}</td>
-                    <td>{thread?.Colour}</td>
-                    <td>{thread?.Code}</td>
-                    <td>
-                      {editingId === thread._id ? (
-                        <input
-                          style={{
-                            borderRadius: "12px",
-                            width: "25%",
-                            textIndent: "6px",
-                            border: "1px solid black",
-                          }}
-                          type="number"
-                          value={quantity[thread._id]}
-                          onChange={(e) => handleChange(e, thread._id)}
-                        />
-                      ) : (
-                        thread?.Quantity
-                      )}
-                    </td>
-                    <td>
-                      {editingId === thread._id ? (
-                        <MdSaveAlt
-                          onClick={() => handleSaveClick(thread._id)}
-                          style={{
-                            fontSize: "22px",
-                            color: "green",
-                            cursor: "pointer",
-                          }}
-                        >
-                          Save
-                        </MdSaveAlt>
-                      ) : (
-                        <>
-                          <FaEdit
-                            onClick={() => handleEditClick(thread)}
+                {threads
+                  .filter((item) => {
+                    return search.toLowerCase() === 0
+                      ? item
+                      : item.Colour.toLowerCase().includes(search) ||
+                          item.Code.toLowerCase().includes(search);
+                  })
+                  .map((thread, i) => (
+                    <tr key={thread._id}>
+                      <td>{i + 1}</td>
+                      <td>{thread?.Colour}</td>
+                      <td>{thread?.Code}</td>
+                      <td>
+                        {editingId === thread._id ? (
+                          <input
+                            style={{
+                              borderRadius: "12px",
+                              width: "25%",
+                              textIndent: "6px",
+                              border: "1px solid black",
+                            }}
+                            type="number"
+                            value={quantity[thread._id]}
+                            onChange={(e) => handleChange(e, thread._id)}
+                          />
+                        ) : (
+                          thread?.Quantity
+                        )}
+                      </td>
+                      <td>
+                        {editingId === thread._id ? (
+                          <MdSaveAlt
+                            onClick={() => handleSaveClick(thread._id)}
                             style={{
                               fontSize: "22px",
-                              color: "#1c4966",
+                              color: "green",
                               cursor: "pointer",
                             }}
                           >
-                            Edit
-                          </FaEdit>
-                          <MdDelete
-                            style={{
-                              fontSize: "22px",
-                              color: "red",
-                              cursor: "pointer",
-                            }}
-                            onClick={() => deleteHandler(thread._id)}
-                          />
-                        </>
-                      )}
-                    </td>
-                  </tr>
-                ))}
+                            Save
+                          </MdSaveAlt>
+                        ) : (
+                          <>
+                            <FaEdit
+                              onClick={() => handleEditClick(thread)}
+                              style={{
+                                fontSize: "22px",
+                                color: "#1c4966",
+                                cursor: "pointer",
+                              }}
+                            >
+                              Edit
+                            </FaEdit>
+                            <MdDelete
+                              style={{
+                                fontSize: "22px",
+                                color: "red",
+                                cursor: "pointer",
+                              }}
+                              onClick={() => deleteHandler(thread._id)}
+                            />
+                          </>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           )}
