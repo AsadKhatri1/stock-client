@@ -2,21 +2,20 @@ import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
-const AddModal = (props) => {
+const FabricModal = (props) => {
   const [Colour, setColour] = useState("");
-  const [Code, setCode] = useState("");
-  const [Quantity, setQuantity] = useState("");
+  const [Length, setLength] = useState("");
+
   //   adding thread
   const addHandler = async (e) => {
     e.preventDefault();
 
     try {
       const token = localStorage.getItem("token");
-      console.log(token);
-      console.log(Colour, Code, Quantity);
+
       const response = await axios.post(
-        "https://stock-management-onoq.onrender.com/api/thread/addthread",
-        { Colour, Code, Quantity },
+        "https://stock-management-onoq.onrender.com/api/fabric/addfabric",
+        { Colour, Length },
         { headers: { Authorization: `${token}` } }
       );
       if (response.data.success) {
@@ -33,7 +32,7 @@ const AddModal = (props) => {
       <div className="modal-wrapper" onClick={() => props.closeModal()}></div>
 
       <div className="modal-container ">
-        <h2 className="font-weight-bold mb-5">New Thread</h2>
+        <h2 className="font-weight-bold mb-5">New Fabric</h2>
         <form action="post" className="text-center w-100" onSubmit={addHandler}>
           <input
             type="text"
@@ -50,23 +49,9 @@ const AddModal = (props) => {
           <br /> <br />
           <input
             type="text"
-            placeholder="Code"
-            value={Code}
-            onChange={(e) => setCode(e.target.value)}
-            style={{
-              borderRadius: "12px",
-              width: "100%",
-              textIndent: "6px",
-              border: "1px solid black",
-            }}
-          />{" "}
-          <br />
-          <br />
-          <input
-            type="number"
-            placeholder="Quantity"
-            value={Quantity}
-            onChange={(e) => setQuantity(e.target.value)}
+            placeholder="Length"
+            value={Length}
+            onChange={(e) => setLength(e.target.value)}
             style={{
               borderRadius: "12px",
               width: "100%",
@@ -95,4 +80,4 @@ const AddModal = (props) => {
   );
 };
 
-export default AddModal;
+export default FabricModal;

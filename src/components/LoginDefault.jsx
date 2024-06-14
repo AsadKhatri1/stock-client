@@ -21,7 +21,7 @@ const LoginDefault = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/admin/login/",
+        "https://stock-management-onoq.onrender.com/api/admin/login/",
         { Email, Password }
       );
       if (response.data.success) {
