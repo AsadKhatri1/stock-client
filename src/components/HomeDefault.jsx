@@ -14,6 +14,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { Audio } from "react-loader-spinner";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -93,7 +94,19 @@ const HomeDefault = () => {
             </div>
             <div className="number px-3 mt-5 d-flex justify-content-end align-items-center">
               <h1 className="font-weight-bold">
-                {threads.length ? threads.length : 0}
+                {threads.length ? (
+                  threads.length
+                ) : (
+                  <Audio
+                    height="50"
+                    width="50"
+                    radius="9"
+                    color="grey"
+                    ariaLabel="loading"
+                    wrapperStyle
+                    wrapperClass
+                  />
+                )}
               </h1>
             </div>
           </div>
@@ -110,7 +123,19 @@ const HomeDefault = () => {
             </div>
             <div className="number px-3 mt-5 d-flex justify-content-end align-items-center">
               <h1 className="font-weight-bold">
-                {fabrics.length ? fabrics.length : 0}
+                {fabrics.length ? (
+                  fabrics.length
+                ) : (
+                  <Audio
+                    height="50"
+                    width="50"
+                    radius="9"
+                    color="grey"
+                    ariaLabel="loading"
+                    wrapperStyle
+                    wrapperClass
+                  />
+                )}
               </h1>
             </div>
           </div>
@@ -127,7 +152,19 @@ const HomeDefault = () => {
             </div>
             <div className="number px-3 mt-5 d-flex justify-content-end align-items-center">
               <h1 className="font-weight-bold">
-                {admins.length ? admins.length : 0}
+                {admins.length ? (
+                  admins.length
+                ) : (
+                  <Audio
+                    height="50"
+                    width="50"
+                    radius="9"
+                    color="grey"
+                    ariaLabel="loading"
+                    wrapperStyle
+                    wrapperClass
+                  />
+                )}
               </h1>
             </div>
           </div>

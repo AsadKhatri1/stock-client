@@ -1,26 +1,26 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Stock from "./pages/Stock";
 
 import Login from "./pages/Login";
-import { ToastContainer } from "react-toastify";
-import Home from "./pages/Home";
-import Header from "./components/Header";
-import Sidebar from "./components/Sidebar";
 
+import Home from "./pages/Home";
+import { searchContext } from "./context/context";
 import Fabric from "./pages/Fabric";
 function App() {
+  const [showSearch, setShowSearch] = useState(false);
   return (
-    <Routes>
-      <Route path="/" element={<Login />}></Route>
-      <Route path="/home" element={<Home />}></Route>
-      <Route path="/fabric" element={<Fabric />}></Route>
+    <searchContext.Provider value={{ showSearch, setShowSearch }}>
+      <Routes>
+        <Route path="/" element={<Login />}></Route>
+        <Route path="/home" element={<Home />}></Route>
+        <Route path="/fabric" element={<Fabric />}></Route>
 
-      <Route path="/stock" element={<Stock />}></Route>
-    </Routes>
+        <Route path="/stock" element={<Stock />}></Route>
+      </Routes>
+    </searchContext.Provider>
   );
 }
 

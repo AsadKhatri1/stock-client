@@ -1,18 +1,21 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { Audio } from "react-loader-spinner";
 import FabricModal from "./FabricModal";
 import { toast } from "react-toastify";
 import { FaEdit } from "react-icons/fa";
 import { MdSaveAlt } from "react-icons/md";
+import { searchContext } from "../context/context";
+
 const FabricDefault = () => {
   const [fabrics, setFabrics] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [length, setLength] = useState({});
+  const [search, setSearch] = useState("");
   const closeModal = () => setShowModal(false);
-
+  const { showSearch, setShowSearch } = useContext(searchContext);
   // Get all fabrics
   const allFabrics = async () => {
     const response = await axios.get(
@@ -83,6 +86,21 @@ const FabricDefault = () => {
           Add New Fabric
         </button>
       </div>
+      {showSearch && (
+        <div className="row m-2 ">
+          <input
+            type="text"
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search"
+            className="w-50 rounded py-2"
+            style={{
+              borderRadius: "12px",
+              textIndent: "6px",
+              border: "1px solid black",
+            }}
+          />
+        </div>
+      )}
       {showModal ? (
         <FabricModal showModal={showModal} closeModal={closeModal} />
       ) : null}
@@ -109,64 +127,70 @@ const FabricDefault = () => {
                 </tr>
               </thead>
               <tbody>
-                {fabrics.map((fabric, i) => (
-                  <tr key={fabric._id}>
-                    <td>{i + 1}</td>
-                    <td>{fabric?.Colour}</td>
-                    <td>
-                      {editingId === fabric._id ? (
-                        <input
-                          style={{
-                            borderRadius: "12px",
-                            width: "25%",
-                            textIndent: "6px",
-                            border: "1px solid black",
-                          }}
-                          type="number"
-                          value={length[fabric._id]}
-                          onChange={(e) => handleChange(e, fabric._id)}
-                        />
-                      ) : (
-                        fabric?.Length
-                      )}
-                    </td>
-                    <td>
-                      {editingId === fabric._id ? (
-                        <MdSaveAlt
-                          onClick={() => handleSaveClick(fabric._id)}
-                          style={{
-                            fontSize: "22px",
-                            color: "green",
-                            cursor: "pointer",
-                          }}
-                        >
-                          Save
-                        </MdSaveAlt>
-                      ) : (
-                        <>
-                          <FaEdit
-                            onClick={() => handleEditClick(fabric)}
+                {fabrics
+                  .filter((item) => {
+                    return search.toLowerCase() === 0
+                      ? item
+                      : item.Colour.toLowerCase().includes(search);
+                  })
+                  .map((fabric, i) => (
+                    <tr key={fabric._id}>
+                      <td>{i + 1}</td>
+                      <td>{fabric?.Colour}</td>
+                      <td>
+                        {editingId === fabric._id ? (
+                          <input
+                            style={{
+                              borderRadius: "12px",
+                              width: "25%",
+                              textIndent: "6px",
+                              border: "1px solid black",
+                            }}
+                            type="number"
+                            value={length[fabric._id]}
+                            onChange={(e) => handleChange(e, fabric._id)}
+                          />
+                        ) : (
+                          fabric?.Length + "m"
+                        )}
+                      </td>
+                      <td>
+                        {editingId === fabric._id ? (
+                          <MdSaveAlt
+                            onClick={() => handleSaveClick(fabric._id)}
                             style={{
                               fontSize: "22px",
-                              color: "#1c4966",
+                              color: "green",
                               cursor: "pointer",
                             }}
                           >
-                            Edit
-                          </FaEdit>
-                          <MdDelete
-                            style={{
-                              fontSize: "22px",
-                              color: "red",
-                              cursor: "pointer",
-                            }}
-                            onClick={() => deleteHandler(fabric._id)}
-                          />
-                        </>
-                      )}
-                    </td>
-                  </tr>
-                ))}
+                            Save
+                          </MdSaveAlt>
+                        ) : (
+                          <>
+                            <FaEdit
+                              onClick={() => handleEditClick(fabric)}
+                              style={{
+                                fontSize: "22px",
+                                color: "#1c4966",
+                                cursor: "pointer",
+                              }}
+                            >
+                              Edit
+                            </FaEdit>
+                            <MdDelete
+                              style={{
+                                fontSize: "22px",
+                                color: "red",
+                                cursor: "pointer",
+                              }}
+                              onClick={() => deleteHandler(fabric._id)}
+                            />
+                          </>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           )}

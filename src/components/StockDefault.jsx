@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
 import { toast } from "react-toastify";
@@ -7,6 +7,7 @@ import AddModal from "./AddModal";
 import { Audio } from "react-loader-spinner";
 import { FaEdit } from "react-icons/fa";
 import { MdSaveAlt } from "react-icons/md";
+import { searchContext } from "../context/context";
 const StockDefault = () => {
   const [showModal, setShowModal] = useState(false);
   const [search, setSearch] = useState("");
@@ -14,6 +15,7 @@ const StockDefault = () => {
   const [threads, setThreads] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [quantity, setQuantity] = useState({});
+  const { showSearch, setShowSearch } = useContext(searchContext);
   const navigate = useNavigate();
 
   // Get all threads
@@ -93,19 +95,22 @@ const StockDefault = () => {
           Add New Thread
         </button>
       </div>
-      <div className="row m-2 ">
-        <input
-          type="text"
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search"
-          className="w-50 rounded py-2"
-          style={{
-            borderRadius: "12px",
-            textIndent: "6px",
-            border: "1px solid black",
-          }}
-        />
-      </div>
+      {showSearch && (
+        <div className="row m-2 ">
+          <input
+            type="text"
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search"
+            className="w-50 rounded py-2"
+            style={{
+              borderRadius: "12px",
+              textIndent: "6px",
+              border: "1px solid black",
+            }}
+          />
+        </div>
+      )}
+
       {showModal ? (
         <AddModal showModal={showModal} closeModal={closeModal} />
       ) : null}
