@@ -21,7 +21,7 @@ const FabricModal = (props) => {
       if (response.data.success) {
         toast.success(response.data.message);
         props.closeModal();
-        // window.location.reload();
+        window.location.reload();
       }
     } catch (err) {
       toast.error(err.response.data.message);
